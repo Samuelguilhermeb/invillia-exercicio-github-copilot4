@@ -77,15 +77,17 @@ activities = {
     }
 }
 
-
 @app.get("/")
 def root():
     return RedirectResponse(url="/static/index.html")
 
 
+
 @app.get("/activities")
 def get_activities():
     return activities
+
+
 
 @app.post("/activities/{activity_name}/signup")
 def signup_for_activity(activity_name: str, email: str):
@@ -94,9 +96,13 @@ def signup_for_activity(activity_name: str, email: str):
     if activity_name not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
 
+
+
     # Get the specificy activity
     activity = activities[activity_name]
 
+   
+   
     # Validar se o aluno já está inscrito
     if email in activity["participants"]: 
        raise HTTPException(status_code=404, detail="Already signed up")
