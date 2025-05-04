@@ -19,7 +19,7 @@ current_dir = Path(__file__).parent
 app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
           "static")), name="static")
 
-# In-memory activity database
+# In-memory activities database
 activities = {
     "Chess Club": {
         "description": "Learn strategies and compete in chess tournaments",
@@ -29,13 +29,13 @@ activities = {
     },
     "Programming Class": {
         "description": "Learn programming fundamentals and build software projects",
-        "schedule": "Tuesdays and Thursdays, 3:30 PM - 4:30 PM",
+        "schedule": "Tuesday and Thursdays, 3:30 PM - 4:30 PM",
         "max_participants": 20,
         "participants": ["emma@mergington.edu", "sophia@mergington.edu"]
     },
     "Gym Class": {
         "description": "Physical education and sports activities",
-        "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
+        "schedule": "Monday, Wednesday and Friday, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
     },
@@ -43,39 +43,40 @@ activities = {
         "description": "Join the school soccer team and compete in matches",
         "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:30 PM",
         "max_participants": 22,
-        "participants": ["alex@mergington.edu", "mia@mergington.edu"]
+        "participants": ["liam@mergington.edu", "noah@mergington.edu"]
     },
     "Basketball Team": {
         "description": "Practice basketball and participate in tournaments",
         "schedule": "Wednesdays and Fridays, 3:00 PM - 4:30 PM",
         "max_participants": 15,
-        "participants": ["liam@mergington.edu", "ava@mergington.edu"]
+        "participants": ["ava@mergington.edu", "mia@mergington.edu"]
     },
     "Art Club": {
-        "description": "Explore various art techniques and create your own masterpieces",
+        "description": "Explore your creativity through painting and drawing",
         "schedule": "Thursdays, 3:30 PM - 5:00 PM",
-        "max_participants": 15,
-        "participants": ["noah@mergington.edu", "isabella@mergington.edu"]
+        "max_participants": 10,
+        "participants": ["amelia@mergington.edu", "harper@mergington.edu"]
     },
     "Drama Club": {
-        "description": "Learn acting skills and perform in school plays",
-        "schedule": "Mondays and Wednesdays, 4:00 PM - 5:30 PM",
-        "max_participants": 20,
-        "participants": ["lucas@mergington.edu", "amelia@mergington.edu"]
+        "description": "Act in plays and improve your theatrical skills",
+        "schedule": "Mondays, 4:00 PM - 5:30 PM",
+        "max_participants": 15,
+        "participants": ["ella@mergington.edu", "scarlett@mergington.edu"]
     },
     "Math Club": {
         "description": "Solve challenging math problems and prepare for competitions",
         "schedule": "Tuesdays, 3:30 PM - 4:30 PM",
-        "max_participants": 10,
-        "participants": ["elijah@mergington.edu", "sophia@mergington.edu"]
+        "max_participants": 12,
+        "participants": ["james@mergington.edu", "benjamin@mergington.edu"]
     },
     "Science Club": {
         "description": "Conduct experiments and explore scientific concepts",
         "schedule": "Fridays, 3:00 PM - 4:30 PM",
-        "max_participants": 12,
-        "participants": ["james@mergington.edu", "charlotte@mergington.edu"]
+        "max_participants": 18,
+        "participants": ["elijah@mergington.edu", "lucas@mergington.edu"]
     }
 }
+
 
 @app.get("/")
 def root():
@@ -85,7 +86,6 @@ def root():
 @app.get("/activities")
 def get_activities():
     return activities
-
 
 @app.post("/activities/{activity_name}/signup")
 def signup_for_activity(activity_name: str, email: str):
@@ -99,7 +99,7 @@ def signup_for_activity(activity_name: str, email: str):
 
     # Validar se o aluno já está inscrito
     if email in activity["participants"]: 
-        raise HTTPException(status_code=404, detail="Already signed up")
+       raise HTTPException(status_code=404, detail="Already signed up")
    
     # Add student
     activity["participants"].append(email)
